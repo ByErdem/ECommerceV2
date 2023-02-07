@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace ECommerceV2.Shared.Utilities.Results.ComplexTypes
 {
-    public enum ResultStatus
+    public enum EActionType
     {
-        Success = 0,
-        Error = 1,
-        Warning = 2, // ResultStatus.Warning
-        Info = 3 // ResultStatus.Info
+        Sales,
+        Buying,
+        Basket,
     }
 }

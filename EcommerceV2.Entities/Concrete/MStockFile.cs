@@ -14,6 +14,7 @@ namespace EcommerceV2.Entities.Concrete
         public string? Name { get; set; }
         public string? Ext { get; set; }
         public string? Path { get; set; }
-        public FileType FileType { get; set; } 
+        public string? Keywords { get; set; }
+        public EFileType FileType { get; set; } 
     }
 }

@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace EcommerceV2.Entities.Concrete
 {
-    public class MVideo:EntityBase,IEntity
+    public class MWish:EntityBase,IEntity
     {
+        public int UserId { get; set; }
         public int StockId { get; set; }
-        public string? Name { get; set; }
-        public string? Ext { get; set; }
-        public string? Path { get; set; }
+        public string? StockName { get; set; }
+        public decimal DiscountRate { get; set; }
     }
 }

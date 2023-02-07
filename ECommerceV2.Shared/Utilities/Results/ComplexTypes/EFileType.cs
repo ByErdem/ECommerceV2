@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ECommerceV2.Shared.Utilities.Results.ComplexTypes
 {
-    public enum FileType
+    public enum EFileType
     {
         Image=0,
         Video=1,
