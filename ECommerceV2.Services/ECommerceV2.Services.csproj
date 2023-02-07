@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Folder Include="Abstract\" />
+		<Folder Include="AutoMapper\" />
+		<Folder Include="Concrete\" />
+		<Folder Include="Extensions\" />
+		<Folder Include="Utilities\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="10.1.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\ECommerceV2.Data\ECommerceV2.Data.csproj" />
+	  <ProjectReference Include="..\EcommerceV2.Entities\EcommerceV2.Entities.csproj" />
+	  <ProjectReference Include="..\ECommerceV2.Shared\ECommerceV2.Shared.csproj" />
+	</ItemGroup>
+
+</Project>
