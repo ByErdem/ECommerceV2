@@ -19,6 +19,7 @@ namespace ECommerceV2.Data.Concrete.EntityFramework.Mappings
             builder.Property(x => x.Amount).IsRequired();
             builder.Property(x => x.StockName).IsRequired();
             builder.Property(x => x.StockName).HasMaxLength(250);
+            builder.Property(x => x.BuyingPrice).IsRequired();
             builder.Property(x => x.UnitPrice).IsRequired();
             builder.Property(x => x.TotalPrice).IsRequired();
             builder.Property(x => x.ActionType).IsRequired();
@@ -31,7 +32,7 @@ namespace ECommerceV2.Data.Concrete.EntityFramework.Mappings
             builder.Property(x => x.IsActive).IsRequired();
             builder.Property(x => x.IsDeleted).IsRequired();
             builder.Property(x => x.Note).HasMaxLength(500);
-            builder.ToTable("Actions");
+            builder.ToTable("Tbl_Actions");
         }
     }
 }

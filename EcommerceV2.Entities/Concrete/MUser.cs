@@ -8,6 +8,7 @@ namespace EcommerceV2.Entities.Concrete
         public string? CitizenshipId { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
+        public string? CompanyName { get; set; }
         public string? Email { get; set; }
         public string? City { get; set; }
         public string? District { get; set; }
@@ -15,9 +16,15 @@ namespace EcommerceV2.Entities.Concrete
         public DateTime BirthDate { get; set; }
         public byte[]? PasswordHash { get; set; }
         public EAuthority Authority { get; set; }
-        public MUserFile? UserPicture { get; set; }
-        ICollection<MAction>? Actions { get; set; }
-        ICollection<MWish>? Wishes { get; set; }
+        public string? UserPicture { get; set; }
+        public bool Blocked { get; set; } //Kullanıcının engellenip engellenmediğini tespit etmeye yardımcı olur.
+        public ICollection<MAction>? Actions { get; set; }
+        public ICollection<MWish>? Wishes { get; set; }
+        public ICollection<MStock>? Stocks { get; set; }
+        public ICollection<MSentMessage>? SentMessages { get; set; }
+        public ICollection<MReceivedMessage>? ReceivedMessages { get; set; }
+
+
 
     }
 }

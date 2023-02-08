@@ -34,7 +34,7 @@ namespace ECommerceV2.Data.Concrete.EntityFramework.Mappings
             builder.Property(x => x.IsActive).IsRequired();
             builder.Property(x => x.IsDeleted).IsRequired();
             builder.Property(x => x.Note).HasMaxLength(500);
-            builder.ToTable("StockFiles");
+            builder.ToTable("Tbl_StockFiles");
         }
     }
 }

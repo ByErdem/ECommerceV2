@@ -8,8 +8,11 @@ namespace ECommerceV2.Shared.Utilities.Results.ComplexTypes
 {
     public enum EAuthority
     {
-        Admin = 0,
-        User = 1,
-        VIPUser = 2
+        Admin = 0,       //Admin
+        Seller = 1,      //Seller
+        Buyer = 2,       //Buyer
+        VIPSeller = 3,   //Very Important Person Seller
+        VIPBuyer = 4,    //Very Important Person Buyer
+        King = 5         //Very Important Than All
     }
 }

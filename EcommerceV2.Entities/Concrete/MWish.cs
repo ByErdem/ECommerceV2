@@ -11,7 +11,8 @@ namespace EcommerceV2.Entities.Concrete
     {
         public int UserId { get; set; }
         public int StockId { get; set; }
+        public decimal UnitPrice { get; set; }
         public string? StockName { get; set; }
-        public decimal DiscountRate { get; set; }
+        public decimal DiscountRate { get; set; } //Eğer DiscountRate 0'dan büyükse indirim uygulanabilsin.
     }
 }
