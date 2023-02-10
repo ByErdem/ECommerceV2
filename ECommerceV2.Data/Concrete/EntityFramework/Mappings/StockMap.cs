@@ -19,12 +19,6 @@ namespace ECommerceV2.Data.Concrete.EntityFramework.Mappings
             builder.Property(x => x.Name).HasMaxLength(250);
             builder.Property(x => x.BuyingPrice).IsRequired();
             builder.Property(x => x.UnitPrice).IsRequired();
-            builder.Property(x => x.TaxRate1).IsRequired();
-            builder.Property(x => x.TaxRate2).IsRequired();
-            builder.Property(x => x.TaxRate3).IsRequired();
-            builder.Property(x => x.TaxRate4).IsRequired();
-            builder.Property(x => x.TaxRate5).IsRequired();
-            builder.Property(x => x.TaxRate6).IsRequired();
             builder.Property(x => x.CreatedByName).IsRequired();
             builder.Property(x => x.CreatedByName).HasMaxLength(100);
             builder.Property(x => x.ModifiedByName).IsRequired();
@@ -35,6 +29,8 @@ namespace ECommerceV2.Data.Concrete.EntityFramework.Mappings
             builder.Property(x => x.IsDeleted).IsRequired();
             builder.Property(x => x.Note).HasMaxLength(500);
             builder.ToTable("Tbl_Stocks");
+
+            builder.HasMany(x => x.CommissionRates).WithOne(x => x.Stock).HasForeignKey(x => x.StockId);
         }
     }
 }

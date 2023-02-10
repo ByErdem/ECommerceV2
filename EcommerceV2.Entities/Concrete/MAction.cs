@@ -28,5 +28,6 @@ namespace EcommerceV2.Entities.Concrete
         public EActionType ActionType { get; set; } 
         public MStock? Stock { get; set; }
         public MUser? User { get; set; } 
+        public ICollection<MCommissionRate>? CommissionRates { get; set; }
     }
 }

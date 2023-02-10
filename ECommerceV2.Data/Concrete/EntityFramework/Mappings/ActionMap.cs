@@ -33,6 +33,8 @@ namespace ECommerceV2.Data.Concrete.EntityFramework.Mappings
             builder.Property(x => x.IsDeleted).IsRequired();
             builder.Property(x => x.Note).HasMaxLength(500);
             builder.ToTable("Tbl_Actions");
+
+            builder.HasMany(x => x.CommissionRates).WithOne(x => x.Action).HasForeignKey(x => x.StockId);
         }
     }
 }

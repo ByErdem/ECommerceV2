@@ -30,12 +30,12 @@ namespace ECommerceV2.Data.Concrete.EntityFramework.Mappings
             builder.Property(x => x.Blocked).IsRequired();
             builder.ToTable("Tbl_Users");
 
-            builder.HasMany(x=>x.Actions).WithOne(x=>x.User).HasForeignKey(x=>x.UserId);
+            builder.HasMany(x => x.Actions).WithOne(x => x.User).HasForeignKey(x => x.UserId);
             builder.HasMany(x => x.Stocks).WithOne(x => x.User).HasForeignKey(x => x.UserId);
             builder.HasMany(x => x.SentMessages).WithOne(x => x.Sender).HasForeignKey(x => x.SenderId);
             builder.HasMany(x => x.ReceivedMessages).WithOne(x => x.Receiver).HasForeignKey(x => x.ReceiverId);
-
             
+
         }
     }
 }

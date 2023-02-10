@@ -23,8 +23,5 @@ namespace EcommerceV2.Entities.Concrete
         public ICollection<MStock>? Stocks { get; set; }
         public ICollection<MSentMessage>? SentMessages { get; set; }
         public ICollection<MReceivedMessage>? ReceivedMessages { get; set; }
-
-
-
     }
 }
