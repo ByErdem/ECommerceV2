@@ -18,6 +18,7 @@ namespace EcommerceV2.Entities.Concrete
         public EAuthority Authority { get; set; }
         public string? UserPicture { get; set; }
         public bool Blocked { get; set; } //Kullanıcının engellenip engellenmediğini tespit etmeye yardımcı olur.
+        public MUserFile? UserFile { get; set; }
         public ICollection<MAction>? Actions { get; set; }
         public ICollection<MWish>? Wishes { get; set; }
         public ICollection<MStock>? Stocks { get; set; }

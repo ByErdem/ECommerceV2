@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EcommerceV2.Entities.Concrete
 {
-    public class MCommissionRate
+    public class MCommissionRate : EmptyBase, IEntity
     {
         public int Id { get; set; }
         public int StockId { get; set; }

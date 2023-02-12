@@ -1,4 +1,5 @@
-﻿using ECommerceV2.Shared.Utilities.Results.ComplexTypes;
+﻿using ECommerceV2.Shared.Entities.Abstract;
+using ECommerceV2.Shared.Utilities.Results.ComplexTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace EcommerceV2.Entities.Concrete
 {
-    public class MUserFile
+    public class MUserFile : EmptyBase, IEntity
     {
+        public int Id { get; set; } 
         public int UserId { get; set; }
         public string? Name { get; set; }
         public string? Ext { get; set; }

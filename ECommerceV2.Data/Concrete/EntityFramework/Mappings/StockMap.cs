@@ -27,7 +27,7 @@ namespace ECommerceV2.Data.Concrete.EntityFramework.Mappings
             builder.Property(x => x.ModifiedDate).IsRequired();
             builder.Property(x => x.IsActive).IsRequired();
             builder.Property(x => x.IsDeleted).IsRequired();
-            builder.Property(x => x.Note).HasMaxLength(500);
+            builder.Property(x => x.Description).HasMaxLength(500);
             builder.ToTable("Tbl_Stocks");
 
             builder.HasMany(x => x.CommissionRates).WithOne(x => x.Stock).HasForeignKey(x => x.StockId);

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EcommerceV2.Entities.Concrete
 {
-    public class MWish:EntityBase,IEntity
+    public class MWish : EntityBase, IEntity
     {
         public int UserId { get; set; }
         public int StockId { get; set; }
