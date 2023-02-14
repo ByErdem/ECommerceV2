@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace ECommerceV2.Data.Concrete.EntityFramework.Repositories
 {
-    public class EfUserFileRepository : EfEntityRepositoryBase<MUserFile>, IUserFileRepository
+    public class EfWishRepository : EfEntityRepositoryBase<MWish>, IWishRepository
     {
-        public EfUserFileRepository(DbContext context) : base(context)
+        public EfWishRepository(DbContext context) : base(context)
         {
         }
     }

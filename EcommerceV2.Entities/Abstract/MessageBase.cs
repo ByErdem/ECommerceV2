@@ -1,4 +1,5 @@
 ﻿using EcommerceV2.Entities.Concrete;
+using ECommerceV2.Shared.Entities.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;

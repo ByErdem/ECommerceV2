@@ -6,17 +6,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EcommerceV2.Entities.Concrete
+namespace EcommerceV2.Entities.Dtos
 {
-    public class MAction : EntityBase, IEntity
+    public class ActionDto : DtoGetBase
     {
+        public int Id { get; set; }
         public int UserId { get; set; }
         public int StockId { get; set; }
         public decimal Amount { get; set; }
         public string? StockName { get; set; }
         public string? Category { get; set; }
         public EUnit Unit { get; set; }
-        public decimal BuyingPrice { get; set; } 
+        public decimal BuyingPrice { get; set; }
         public decimal UnitPrice { get; set; }
         public bool AppliedDiscount { get; set; }
         public decimal DiscountRate { get; set; }
@@ -27,9 +28,6 @@ namespace EcommerceV2.Entities.Concrete
                 return Amount * UnitPrice;
             }
         }
-        public EActionType ActionType { get; set; } 
-        public MStock? Stock { get; set; }
-        public MUser? User { get; set; } 
-        public ICollection<MCommissionRate>? CommissionRates { get; set; }
+
     }
 }

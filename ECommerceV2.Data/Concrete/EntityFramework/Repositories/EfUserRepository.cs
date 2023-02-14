@@ -1,4 +1,5 @@
 ﻿using EcommerceV2.Entities.Concrete;
+using ECommerceV2.Data.Abstract;
 using ECommerceV2.Shared.Data.Concrete.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ECommerceV2.Data.Concrete.EntityFramework.Repositories
 {
-    public class EfUserRepository : EfEntityRepositoryBase<MUser>
+    public class EfUserRepository : EfEntityRepositoryBase<MUser>, IUserRepository
     {
         public EfUserRepository(DbContext context) : base(context)
         {

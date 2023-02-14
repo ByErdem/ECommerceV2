@@ -17,8 +17,11 @@ namespace ECommerceV2.Data.Concrete.EntityFramework.Mappings
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Property(x => x.UserId).IsRequired();
             builder.Property(x => x.Amount).IsRequired();
+            builder.Property(x => x.Category).HasMaxLength(250);
             builder.Property(x => x.StockName).IsRequired();
             builder.Property(x => x.StockName).HasMaxLength(250);
+            builder.Property(x => x.Unit).HasMaxLength(20);
+            builder.Property(x => x.Unit).IsRequired();
             builder.Property(x => x.BuyingPrice).IsRequired();
             builder.Property(x => x.UnitPrice).IsRequired();
             builder.Property(x => x.TotalPrice).IsRequired();
