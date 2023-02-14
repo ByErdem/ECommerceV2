@@ -22,9 +22,8 @@ namespace ECommerceV2.Data.Concrete.EntityFramework.Mappings
             builder.Property(x => x.StockName).HasMaxLength(250);
             builder.Property(x => x.Unit).HasMaxLength(20);
             builder.Property(x => x.Unit).IsRequired();
-            builder.Property(x => x.BuyingPrice).IsRequired();
-            builder.Property(x => x.UnitPrice).IsRequired();
-            builder.Property(x => x.TotalPrice).IsRequired();
+            builder.Property(x => x.BuyingPrice).HasColumnType("decimal(18,2)").IsRequired();
+            builder.Property(x => x.UnitPrice).HasColumnType("decimal(18,2)").IsRequired();
             builder.Property(x => x.ActionType).IsRequired();
             builder.Property(x => x.CreatedByName).IsRequired();
             builder.Property(x => x.CreatedByName).HasMaxLength(100);
@@ -37,7 +36,8 @@ namespace ECommerceV2.Data.Concrete.EntityFramework.Mappings
             builder.Property(x => x.Description).HasMaxLength(500);
             builder.ToTable("Tbl_Actions");
 
-            builder.HasMany(x => x.CommissionRates).WithOne(x => x.Action).HasForeignKey(x => x.StockId);
+            builder.HasMany(x => x.CommissionRates).WithOne(x => x.Action).HasForeignKey(x => x.StockId).OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(x => x.User).WithMany(x => x.Actions).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

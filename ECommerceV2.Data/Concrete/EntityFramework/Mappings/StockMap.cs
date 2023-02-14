@@ -18,10 +18,10 @@ namespace ECommerceV2.Data.Concrete.EntityFramework.Mappings
             builder.Property(x => x.Name).IsRequired();
             builder.Property(x => x.Name).HasMaxLength(250);
             builder.Property(x => x.Category).HasMaxLength(250);
-            builder.Property(x => x.BuyingPrice).IsRequired();
+            builder.Property(x => x.BuyingPrice).HasColumnType("decimal(18,2)").IsRequired();
             builder.Property(x => x.Unit).HasMaxLength(20);
             builder.Property(x => x.Unit).IsRequired();
-            builder.Property(x => x.UnitPrice).IsRequired();
+            builder.Property(x => x.UnitPrice).HasColumnType("decimal(18,2)").IsRequired();
             builder.Property(x => x.CreatedByName).IsRequired();
             builder.Property(x => x.CreatedByName).HasMaxLength(100);
             builder.Property(x => x.ModifiedByName).IsRequired();
@@ -33,7 +33,7 @@ namespace ECommerceV2.Data.Concrete.EntityFramework.Mappings
             builder.Property(x => x.Description).HasMaxLength(500);
             builder.ToTable("Tbl_Stocks");
 
-            builder.HasMany(x => x.CommissionRates).WithOne(x => x.Stock).HasForeignKey(x => x.StockId);
+            builder.HasMany(x => x.CommissionRates).WithOne(x => x.Stock).HasForeignKey(x => x.StockId).OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -23,6 +23,8 @@ namespace ECommerceV2.Data.Concrete.EntityFramework.Mappings
             builder.Property(x => x.IsDeleted).IsRequired();
             builder.Property(x => x.IsActive).IsRequired();
             builder.ToTable("Tbl_ReceivedMessages");
+
+            builder.HasOne(x => x.Sender).WithMany().HasForeignKey(x => x.SenderId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

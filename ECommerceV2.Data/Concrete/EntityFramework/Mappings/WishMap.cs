@@ -18,8 +18,8 @@ namespace ECommerceV2.Data.Concrete.EntityFramework.Mappings
             builder.Property(x => x.UserId).IsRequired();
             builder.Property(x => x.StockName).IsRequired();
             builder.Property(x => x.StockName).HasMaxLength(250);
-            builder.Property(x => x.DiscountRate).IsRequired();
-            builder.Property(x => x.UnitPrice).IsRequired();
+            builder.Property(x => x.DiscountRate).HasColumnType("decimal(18,2)").IsRequired();
+            builder.Property(x => x.UnitPrice).HasColumnType("decimal(18,2)").IsRequired();
             builder.ToTable("Tbl_Wishes");
         }
     }

@@ -10,6 +10,6 @@ namespace EcommerceV2.Entities.Concrete
 {
     public class MSentMessage : MessageBase, IEntity
     {
-
+        public virtual MUser? Receiver { get; set; }
     }
 }

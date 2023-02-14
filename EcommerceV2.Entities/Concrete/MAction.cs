@@ -16,7 +16,7 @@ namespace EcommerceV2.Entities.Concrete
         public string? StockName { get; set; }
         public string? Category { get; set; }
         public EUnit Unit { get; set; }
-        public decimal BuyingPrice { get; set; } 
+        public decimal BuyingPrice { get; set; }
         public decimal UnitPrice { get; set; }
         public bool AppliedDiscount { get; set; }
         public decimal DiscountRate { get; set; }
@@ -26,10 +26,12 @@ namespace EcommerceV2.Entities.Concrete
             {
                 return Amount * UnitPrice;
             }
+
+            set { }
         }
-        public EActionType ActionType { get; set; } 
+        public EActionType ActionType { get; set; }
         public MStock? Stock { get; set; }
-        public MUser? User { get; set; } 
+        public MUser? User { get; set; }
         public ICollection<MCommissionRate>? CommissionRates { get; set; }
     }
 }
