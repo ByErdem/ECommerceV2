@@ -14,9 +14,9 @@ namespace ECommerceV2.Services.Abstract
         Task<IDataResult<UserListDto>> GetAllAsync();
         Task<IDataResult<UserListDto>> GetAllByNonBlockedUsersAsync();
         Task<IDataResult<UserListDto>> GetAllByNonDeletedAsync();
-        Task<IResult> AddAsync(UserDto userDto);
-        Task<IResult> UpdateAsync(UserDto userDto);
-        Task<IResult> DeleteAsync(int userId);
+        Task<IResult> AddAsync(UserDto userDto,string createdByUserUniqueId);
+        Task<IResult> UpdateAsync(UserDto userDto, string modifiedByUserUniqueId);
+        Task<IResult> DeleteAsync(int userId, string modifiedByUserUniqueId);
         Task<IResult> HardDelete(int userId);
         Task<IResult> CountAsync();
 

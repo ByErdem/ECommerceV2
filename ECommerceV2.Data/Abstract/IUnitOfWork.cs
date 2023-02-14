@@ -15,7 +15,8 @@ namespace ECommerceV2.Data.Abstract
         ISentMessageRepository SentMessages { get; }
         IStockFileRepository StockFiles { get; }
         IUserFileRepository UserFiles { get; }
-        IWishRepository WishRepository { get; }
+        IUserRepository Users { get; }
+        IWishRepository Wishes { get; }
         Task<int> SaveAsync();
     }
 }

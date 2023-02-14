@@ -54,7 +54,7 @@ namespace ECommerceV2.Data.Concrete
         public IUserRepository Users => _userRepository ?? new EfUserRepository(_context);
 
 
-        public IWishRepository WishRepository => _wishRepository ?? new EfWishRepository(_context);
+        public IWishRepository Wishes => _wishRepository ?? new EfWishRepository(_context);
 
 
         public async Task<int> SaveAsync()

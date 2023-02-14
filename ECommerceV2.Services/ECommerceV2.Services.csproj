@@ -8,7 +8,6 @@
 
 	<ItemGroup>
 		<Folder Include="AutoMapper\" />
-		<Folder Include="Concrete\" />
 		<Folder Include="Extensions\" />
 		<Folder Include="Utilities\" />
 	</ItemGroup>
