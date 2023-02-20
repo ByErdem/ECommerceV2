@@ -3,14 +3,15 @@ using EcommerceV2.Entities.Concrete;
 using EcommerceV2.Entities.Dtos;
 using ECommerceV2.Data.Abstract;
 using ECommerceV2.Services.Abstract;
+using ECommerceV2.Services.Abstract.Encryption;
+using ECommerceV2.Services.Concrete.Encryption;
 using ECommerceV2.Shared.Utilities.Results.Abstract;
 using ECommerceV2.Shared.Utilities.Results.ComplexTypes;
 using ECommerceV2.Shared.Utilities.Results.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ECommerceV2.Services.Concrete
 {
@@ -19,17 +20,54 @@ namespace ECommerceV2.Services.Concrete
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public UserManager(IUnitOfWork unitOfWork, IMapper mapper)
+
+        public UserManager(IUnitOfWork unitOfWork, IMapper mapper, IEncryptionStrategy encryption)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
+        public async Task<IDataResult<UserDto>> Authenticate(UserDto userDto)
+        {
+            var mUser = await _unitOfWork.Users.GetAsync(x => x.Email == userDto.Email);
+            var mUserDto = _mapper.Map<MUser, UserDto>(mUser);
+            if (mUserDto != null)
+            {
+                EncryptionStrategy x = new EncryptionStrategy(new M5Encryption());
+                var toBigger = x.Encrypt(mUserDto.PasswordHash).ToUpper();
+                var toLower = x.Encrypt(mUserDto.PasswordHash).ToLower();
+                if (Encoding.Default.GetString(mUser.PasswordHash) != toBigger && Encoding.Default.GetString(mUser.PasswordHash) != toLower)
+                {
+                    return WrongPasswordError();
+                }
+                else
+                {
+                    var tokenHandler = new JwtSecurityTokenHandler();
+                    var tokenKey = Encoding.ASCII.GetBytes("5B668EE3972691212B2342DADCFFB");
+                    var tokenDescriptor = new SecurityTokenDescriptor()
+                    {
+                        Subject = new ClaimsIdentity(new Claim[] {
+                        new Claim(ClaimTypes.Name, mUserDto.Email)
+                    }),
+                        Expires = DateTime.Now.AddDays(1),
+                        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
+                    };
+
+                    mUserDto.Token = tokenHandler.CreateToken(tokenDescriptor);
+
+                    return new DataResult<UserDto>(EResultStatus.Success, "Kullanıcı doğrulandı", mUserDto);
+                }
+            }
+            else
+            {
+                return WrongPasswordError();
+            }
+        }
 
         public async Task<IResult> AddAsync(UserDto userDto, string createdByUserUniqueId)
         {
             var user = _mapper.Map<MUser>(userDto);
-            user.CreatedByName = createdByUserUniqueId;
+            user.CreatedByUserUniqueId = createdByUserUniqueId;
             await _unitOfWork.Users.AddAsync(user);
             await _unitOfWork.SaveAsync();
             return new Result(EResultStatus.Success, "Kullanıcı oluşturuldu");
@@ -50,15 +88,15 @@ namespace ECommerceV2.Services.Concrete
 
         public async Task<IResult> DeleteAsync(int userId, string modifiedByUserUniqueId)
         {
-            var user = await _unitOfWork.Users.GetAsync(x => x.Id== userId);
-            if(user != null)
+            var user = await _unitOfWork.Users.GetAsync(x => x.Id == userId);
+            if (user != null)
             {
-                user.IsDeleted= true;
-                user.ModifiedByName = modifiedByUserUniqueId;
+                user.IsDeleted = true;
+                user.ModifiedByUserUniqueId = modifiedByUserUniqueId;
                 user.ModifiedDate = DateTime.Now;
                 await _unitOfWork.Users.UpdateAsync(user);
                 await _unitOfWork.SaveAsync();
-                return new Result(EResultStatus.Success,"Kullanıcı silindi");
+                return new Result(EResultStatus.Success, "Kullanıcı silindi");
             }
 
             return new Result(EResultStatus.Error, "Hata oluştu");
@@ -67,19 +105,15 @@ namespace ECommerceV2.Services.Concrete
         public async Task<IDataResult<UserListDto>> GetAllAsync()
         {
             var users = await _unitOfWork.Users.GetAllAsync(null);
-            if(users.Count>-1)
+            if (users.Count > -1)
             {
-                return new DataResult<UserListDto>(EResultStatus.Success, new UserListDto {
-                    Users= users,
-                    ResultStatus = EResultStatus.Success
+                return new DataResult<UserListDto>(EResultStatus.Success, new UserListDto
+                {
+                    Users = users
                 });
             }
 
-            return new DataResult<UserListDto>(EResultStatus.Error, "Sistemde henüz tanımlı kullanıcı yok.", new UserListDto {
-                Users = null,
-                ResultStatus = EResultStatus.Error,
-                Message = "Sistemde henüz tanımlı kullanıcı yok."
-            });
+            return new DataResult<UserListDto>(EResultStatus.Error, "Sistemde henüz tanımlı kullanıcı yok.", null);
         }
 
         public async Task<IDataResult<UserListDto>> GetAllByNonBlockedUsersAsync()
@@ -90,15 +124,12 @@ namespace ECommerceV2.Services.Concrete
                 return new DataResult<UserListDto>(EResultStatus.Success, new UserListDto
                 {
                     Users = users,
-                    ResultStatus = EResultStatus.Success
                 });
             }
 
             return new DataResult<UserListDto>(EResultStatus.Error, "Henüz engellenen kullanıcı yok.", new UserListDto
             {
                 Users = null,
-                ResultStatus = EResultStatus.Error,
-                Message = "Henüz engellenen kullanıcı yok."
             });
         }
 
@@ -110,44 +141,54 @@ namespace ECommerceV2.Services.Concrete
                 return new DataResult<UserListDto>(EResultStatus.Success, new UserListDto
                 {
                     Users = users,
-                    ResultStatus = EResultStatus.Success
                 });
             }
 
             return new DataResult<UserListDto>(EResultStatus.Error, "Henüz silinen kullanıcı yok.", new UserListDto
             {
                 Users = null,
-                ResultStatus = EResultStatus.Error,
-                Message = "Henüz silinen kullanıcı yok."
             });
         }
 
         public async Task<IDataResult<UserDto>> GetAsync(int userId)
         {
-            var user = await _unitOfWork.Users.GetAsync(x=>x.Id == userId);
+            var user = await _unitOfWork.Users.GetAsync(x => x.Id == userId);
+            var userDto = _mapper.Map<MUser, UserDto>(user);
             if (user != null)
             {
-                return new DataResult<UserDto>(EResultStatus.Success,new UserDto { 
-                    User = user,
-                    ResultStatus= EResultStatus.Success
-                }); 
+                return new DataResult<UserDto>(EResultStatus.Success, userDto);
             }
 
-            return new DataResult<UserDto>(EResultStatus.Error, "Kullanıcı bulunamadı", new UserDto { 
-                User = null,
-                ResultStatus= EResultStatus.Error,
-                Message = "Kullanıcı bulunamadı"
-            });
+            return new DataResult<UserDto>(EResultStatus.Error, "Kullanıcı bulunamadı", null);
         }
 
-        public Task<IResult> HardDelete(int userId)
+        public async Task<IResult> HardDelete(int userId)
         {
-            throw new NotImplementedException();
+            var user = await _unitOfWork.Users.GetAsync(x => x.Id == userId);
+            if (user != null)
+            {
+                await _unitOfWork.Users.DeleteAsync(user);
+                await _unitOfWork.SaveAsync();
+                new Result(EResultStatus.Success, "Kullanıcı sistemden tamamen silindi");
+            }
+
+            return new Result(EResultStatus.Error, "Bu Id'ye ait kullanıcı bulunamadı");
         }
 
-        public Task<IResult> UpdateAsync(UserDto userDto, string modifiedByUserUniqueId)
+        public async Task<IResult> UpdateAsync(UserDto userDto, string modifiedByUserUniqueId)
         {
-            throw new NotImplementedException();
+            var oldUser = await _unitOfWork.Users.GetAsync(x => x.Id == userDto.Id);
+            var user = _mapper.Map(userDto, oldUser);
+            user.ModifiedByUserUniqueId = modifiedByUserUniqueId;
+            var updatedUser = await _unitOfWork.Users.UpdateAsync(user);
+            var updatedUserDto = _mapper.Map<MUser, UserDto>(updatedUser);
+            await _unitOfWork.SaveAsync();
+            return new DataResult<UserDto>(EResultStatus.Success, "Kullanıcı üzerindeki değişiklikler başarıyla tamamlandı.", updatedUserDto);
+        }
+
+        IDataResult<UserDto> WrongPasswordError()
+        {
+            return new DataResult<UserDto>(EResultStatus.Error, "Kullanıcı adı veya şifre yanlış, lütfen kontrol ediniz!", null);
         }
     }
 }

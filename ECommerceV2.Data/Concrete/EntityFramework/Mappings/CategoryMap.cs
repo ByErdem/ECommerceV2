@@ -17,7 +17,7 @@ namespace ECommerceV2.Data.Concrete.EntityFramework.Mappings
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Property(x => x.Name).IsRequired();
             builder.Property(x => x.Name).HasMaxLength(100);
-            builder.ToTable("Tbl_Categories");
+            builder.ToTable("Categories");
 
             builder.HasOne(x => x.Parent)
                    .WithMany(x => x.Children)

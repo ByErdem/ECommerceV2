@@ -19,7 +19,7 @@ namespace ECommerceV2.Data.Concrete.EntityFramework.Mappings
             builder.Property(x => x.Name).HasMaxLength(250);
             builder.Property(x => x.FileType).HasMaxLength(20);
             builder.Property(x => x.Path).HasMaxLength(300);
-            builder.ToTable("Tbl_UserFiles");
+            builder.ToTable("UserFiles");
 
         }
     }

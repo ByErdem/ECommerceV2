@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
@@ -7,20 +7,21 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Folder Include="AutoMapper\" />
-		<Folder Include="Extensions\" />
+		<Folder Include="AutoMapper\Profiles\" />
 		<Folder Include="Utilities\" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="12.0.1" />
-		<PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.13" />
+		<PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.26.1" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\ECommerceV2.Data\ECommerceV2.Data.csproj" />
-	  <ProjectReference Include="..\EcommerceV2.Entities\EcommerceV2.Entities.csproj" />
-	  <ProjectReference Include="..\ECommerceV2.Shared\ECommerceV2.Shared.csproj" />
+		<ProjectReference Include="..\ECommerceV2.Data\ECommerceV2.Data.csproj" />
+		<ProjectReference Include="..\EcommerceV2.Entities\EcommerceV2.Entities.csproj" />
+		<ProjectReference Include="..\ECommerceV2.Shared\ECommerceV2.Shared.csproj" />
 	</ItemGroup>
 
 </Project>

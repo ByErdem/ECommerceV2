@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EcommerceV2.Entities.Dtos
 {
-    public class UserListDto : DtoGetBase
+    public class UserListDto
     {
         public IList<MUser>? Users { get; set; }
     }

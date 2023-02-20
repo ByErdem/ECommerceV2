@@ -12,8 +12,8 @@ namespace ECommerceV2.Services.Abstract
     {
         Task<IDataResult<int>> GetCommissionRatesByUserIdAsync(int userId);
         Task<IDataResult<int>> GetAllCommissionRatesByUserIdAsync(int userId);
-        Task<IResult> AddAsync(MCommissionRate commissionRate,string createdByName);
-        Task<IResult> UpdateAsync(MCommissionRate commissionRate, string modifiedByName);
+        Task<IResult> AddAsync(MCommissionRate commissionRate,string CreatedByUserUniqueId);
+        Task<IResult> UpdateAsync(MCommissionRate commissionRate, string ModifiedByUserUniqueId);
         Task<IResult> DeleteAsync(int Id);
         Task<IResult> HardDeleteAsync(int Id);
     }

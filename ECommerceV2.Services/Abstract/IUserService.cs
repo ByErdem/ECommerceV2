@@ -10,6 +10,7 @@ namespace ECommerceV2.Services.Abstract
 {
     public interface IUserService
     {
+        Task<IDataResult<UserDto>> Authenticate(UserDto userDto);
         Task<IDataResult<UserDto>> GetAsync(int userId);
         Task<IDataResult<UserListDto>> GetAllAsync();
         Task<IDataResult<UserListDto>> GetAllByNonBlockedUsersAsync();

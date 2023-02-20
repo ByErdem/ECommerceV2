@@ -17,7 +17,7 @@ namespace ECommerceV2.Data.Concrete.EntityFramework.Mappings
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Property(x => x.Name).IsRequired();
             builder.Property(x => x.Name).HasMaxLength(50);
-            builder.ToTable("Tbl_CommissionRates");
+            builder.ToTable("CommissionRates");
 
         }
     }

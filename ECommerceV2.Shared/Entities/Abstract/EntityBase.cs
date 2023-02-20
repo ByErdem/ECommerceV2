@@ -13,8 +13,8 @@ namespace ECommerceV2.Shared.Entities.Abstract
         public virtual DateTime ModifiedDate { get; set; } = DateTime.Now;
         public virtual bool IsDeleted { get; set; } = false;
         public virtual bool IsActive { get; set; } = true;
-        public virtual string CreatedByName { get; set; } = "Admin";
-        public virtual string ModifiedByName { get; set; } = "Admin";
+        public virtual string CreatedByUserUniqueId { get; set; } = "Admin";
+        public virtual string ModifiedByUserUniqueId { get; set; } = "Admin";
         public virtual string? Description { get; set; } 
     }
 }

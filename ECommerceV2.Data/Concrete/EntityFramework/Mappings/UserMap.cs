@@ -28,7 +28,7 @@ namespace ECommerceV2.Data.Concrete.EntityFramework.Mappings
             builder.Property(x => x.Authority).IsRequired();
             builder.Property(x => x.UserPicture).HasMaxLength(250);
             builder.Property(x => x.Blocked).IsRequired();
-            builder.ToTable("Tbl_Users");
+            builder.ToTable("Users");
 
             builder.HasMany(x => x.Actions).WithOne(x => x.User).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Restrict);
             builder.HasMany(x => x.Stocks).WithOne(x => x.User).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Restrict);
