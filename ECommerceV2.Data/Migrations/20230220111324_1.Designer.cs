@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECommerceV2.Data.Migrations
 {
     [DbContext(typeof(ECommerceV2Context))]
-    [Migration("20230215073722_1")]
+    [Migration("20230220111324_1")]
     partial class _1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
